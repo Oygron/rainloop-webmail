@@ -9923,6 +9923,29 @@ NewThemeLink IncludeCss LoadingDescriptionEsc TemplatesLink LangLink IncludeBack
 					'FileName' => (0 === \strlen($sSubject) ? 'message-'.$mResult['Uid'] : \MailSo\Base\Utils::ClearXss($sSubject)).'.eml'
 				));
 
+				// Labels
+				$mResult['Labels'] = [];
+				$aFlagsOrig = $mResponse->Flags();
+				foreach ($aFlagsOrig as $sFlag)
+				{
+					if ('$label_' === substr($sFlag, 0, 7))
+					{
+						$mResult['Labels'][] = substr($sFlag, 7);
+					}
+				}
+				if (\in_array('\\deleted', $aFlags))
+				{
+					$mResult['Labels'][] = '\\Trash';
+				}
+				if (\in_array('\\sent', $aFlags))
+				{
+					$mResult['Labels'][] = '\\Sent';
+				}
+				if (\in_array('\\archived', $aFlags))
+				{
+					$mResult['Labels'][] = '\\Archived';
+				}
+
 				// Flags
 				$aFlags = $mResponse->FlagsLowerCase();
 				$mResult['IsSeen'] = \in_array('\\seen', $aFlags);

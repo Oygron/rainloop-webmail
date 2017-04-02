@@ -318,6 +318,7 @@ class MailClient
 	{
 		$this->MessageSetFlag($sFolderName, $aIndexRange, $bIndexIsUid,
 			\MailSo\Imap\Enumerations\MessageFlag::FLAGGED, $bSetAction, $sSkipUnsupportedFlag);
+		// $this->MessageSetFlag($sFolderName, $aIndexRange, $bIndexIsUid, '$label_titi', true, true);
 	}
 
 	/**

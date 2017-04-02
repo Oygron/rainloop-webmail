@@ -85,6 +85,7 @@ class MessageModel extends AbstractModel
 		this.isHtml = ko.observable(false);
 		this.hasImages = ko.observable(false);
 		this.attachments = ko.observableArray([]);
+		this.labels = ko.observableArray([]);
 
 		this.isPgpSigned = ko.observable(false);
 		this.isPgpEncrypted = ko.observable(false);
@@ -170,6 +171,7 @@ class MessageModel extends AbstractModel
 		this.isHtml(false);
 		this.hasImages(false);
 		this.attachments([]);
+		this.labels([]);
 
 		this.isPgpSigned(false);
 		this.isPgpEncrypted(false);
@@ -268,6 +270,7 @@ class MessageModel extends AbstractModel
 				this.subjectPrefix('');
 				this.subjectSuffix(this.subject());
 			}
+			this.labels = json.Labels;
 
 			this.dateTimeStampInUTC(pInt(json.DateTimeStampInUTC));
 			this.hasAttachments(!!json.HasAttachments);
@@ -722,6 +725,8 @@ class MessageModel extends AbstractModel
 			this.checked(message.checked());
 			this.hasAttachments(message.hasAttachments());
 			this.attachmentsSpecData(message.attachmentsSpecData());
+
+			this.labels(message.labels());
 		}
 
 		this.body = null;

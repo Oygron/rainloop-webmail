@@ -35,6 +35,7 @@
 			<span class="sender" data-bind="text: senderEmailsString, attr: {'title': senderClearEmailsString}"></span>
 			&nbsp;
 		</div>
+		<div class="labelListPlace" data-bind="template: { name: 'MailLabelListItem', foreach: labels }"></div>
 		<div class="attachmentParent actionHandle dragHandle">
 			<span class="attachment">
 				<i data-bind="css: attachmentIconClass"></i>
