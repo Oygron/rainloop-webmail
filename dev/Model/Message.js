@@ -270,7 +270,7 @@ class MessageModel extends AbstractModel
 				this.subjectPrefix('');
 				this.subjectSuffix(this.subject());
 			}
-			this.labels = json.Labels;
+			this.labels(json.Labels);
 
 			this.dateTimeStampInUTC(pInt(json.DateTimeStampInUTC));
 			this.hasAttachments(!!json.HasAttachments);

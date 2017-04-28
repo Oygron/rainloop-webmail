@@ -281,6 +281,8 @@ class MessageViewMailBoxUserView extends AbstractViewNext
 		this.viewIsImportant = ko.observable(false);
 		this.viewIsFlagged = ko.observable(false);
 
+		this.viewLabels = ko.observable([]);
+
 		this.viewFromDkimVisibility = ko.computed(() => 'none' !== this.viewFromDkimData()[0]);
 
 		this.viewFromDkimStatusIconClass = ko.computed(() => {
@@ -356,6 +358,8 @@ class MessageViewMailBoxUserView extends AbstractViewNext
 				this.viewDownloadLink(message.downloadLink());
 				this.viewIsImportant(message.isImportant());
 				this.viewIsFlagged(message.flagged());
+
+				this.viewLabels(message.labels());
 
 				lastEmail = message.fromAsSingleEmail();
 				getUserPic(lastEmail, (pic, email) => {
