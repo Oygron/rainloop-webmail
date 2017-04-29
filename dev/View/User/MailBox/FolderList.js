@@ -42,6 +42,9 @@ class FolderListMailBoxUserView extends AbstractViewNext
 		this.folderListSystem = FolderStore.folderListSystem;
 		this.foldersChanging = FolderStore.foldersChanging;
 
+		this.labelListSystem = ['Boîte de réception', 'Envoyés', 'Brouillons', 'Spam', 'Corbeille', 'Archivés'];
+		this.labelList = ['Toto2', 'Toto3'];
+
 		this.moveAction = moveAction;
 
 		this.foldersListWithSingleInboxRootFolder = FolderStore.foldersListWithSingleInboxRootFolder;
