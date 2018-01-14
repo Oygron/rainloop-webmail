@@ -13,6 +13,7 @@ import {setFolderHash} from 'Common/Cache';
 import AppStore from 'Stores/User/App';
 import SettingsStore from 'Stores/User/Settings';
 import FolderStore from 'Stores/User/Folder';
+import LabelStore from 'Stores/User/Label';
 import MessageStore from 'Stores/User/Message';
 
 import * as Settings from 'Storage/Settings';
@@ -42,7 +43,7 @@ class FolderListMailBoxUserView extends AbstractViewNext
 		this.folderListSystem = FolderStore.folderListSystem;
 		this.foldersChanging = FolderStore.foldersChanging;
 
-		this.labelListSystem = ['Boîte de réception', 'Envoyés', 'Brouillons', 'Spam', 'Corbeille', 'Archivés'];
+		this.labelListSystem = LabelStore.labelListSystem;
 		this.labelList = ['Toto2', 'Toto3'];
 
 		this.moveAction = moveAction;

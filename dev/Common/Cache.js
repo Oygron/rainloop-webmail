@@ -9,9 +9,14 @@ let FOLDERS_CACHE = {},
 	FOLDERS_NAME_CACHE = {},
 	FOLDERS_HASH_CACHE = {},
 	FOLDERS_UID_NEXT_CACHE = {},
+	LABELS_CACHE = {},
+	LABELS_NAME_CACHE = {},
+	LABELS_HASH_CACHE = {},
+	LABELS_UID_NEXT_CACHE = {},
 	MESSAGE_FLAGS_CACHE = {},
 	NEW_MESSAGE_CACHE = {},
-	inboxFolderName = '';
+	inboxFolderName = '',
+	inboxLabelName = '';
 
 const REQUESTED_MESSAGE_CACHE = {},
 	capaGravatar = Settings.capa(Capa.Gravatar);
@@ -25,6 +30,10 @@ export function clear()
 	FOLDERS_NAME_CACHE = {};
 	FOLDERS_HASH_CACHE = {};
 	FOLDERS_UID_NEXT_CACHE = {};
+	LABELS_CACHE = {};
+	LABELS_NAME_CACHE = {};
+	LABELS_HASH_CACHE = {};
+	LABELS_UID_NEXT_CACHE = {};
 	MESSAGE_FLAGS_CACHE = {};
 }
 
@@ -192,6 +201,101 @@ export function setFolderToCacheList(folderFullNameRaw, folder)
 export function removeFolderFromCacheList(folderFullNameRaw)
 {
 	setFolderToCacheList(folderFullNameRaw, null);
+}
+
+/**
+ * @returns {string}
+ */
+export function getLabelInboxName()
+{
+	return '' === inboxLabelName ? 'INBOX' : inboxLabelName;
+}
+
+/**
+ * @param {string} labelHash
+ * @returns {string}
+ */
+export function getLabelFullNameRaw(labelHash)
+{
+	return '' !== labelHash && LABELS_NAME_CACHE[labelHash] ? LABELS_NAME_CACHE[labelHash] : '';
+}
+
+/**
+ * @param {string} labelHash
+ * @param {string} labelFullNameRaw
+ */
+export function setLabelFullNameRaw(labelHash, labelFullNameRaw)
+{
+	LABELS_NAME_CACHE[labelHash] = labelFullNameRaw;
+	if ('INBOX' === labelFullNameRaw || '' === inboxLabelName)
+	{
+		inboxLabelName = labelFullNameRaw;
+	}
+}
+
+/**
+ * @param {string} labelFullNameRaw
+ * @returns {string}
+ */
+export function getLabelHash(labelFullNameRaw)
+{
+	return '' !== labelFullNameRaw && LABELS_HASH_CACHE[labelFullNameRaw] ? LABELS_HASH_CACHE[labelFullNameRaw] : '';
+}
+
+/**
+ * @param {string} labelFullNameRaw
+ * @param {string} labelHash
+ */
+export function setLabelHash(labelFullNameRaw, labelHash)
+{
+	if ('' !== labelFullNameRaw)
+	{
+		LABELS_HASH_CACHE[labelFullNameRaw] = labelHash;
+	}
+}
+
+/**
+ * @param {string} labelFullNameRaw
+ * @returns {string}
+ */
+export function getLabelUidNext(labelFullNameRaw)
+{
+	return '' !== labelFullNameRaw && LABELS_UID_NEXT_CACHE[labelFullNameRaw] ? LABELS_UID_NEXT_CACHE[labelFullNameRaw] : '';
+}
+
+/**
+ * @param {string} labelFullNameRaw
+ * @param {string} uidNext
+ */
+export function setLabelUidNext(labelFullNameRaw, uidNext)
+{
+	LABELS_UID_NEXT_CACHE[labelFullNameRaw] = uidNext;
+}
+
+/**
+ * @param {string} labelFullNameRaw
+ * @returns {?LabelModel}
+ */
+export function getLabelFromCacheList(labelFullNameRaw)
+{
+	return '' !== labelFullNameRaw && LABELS_CACHE[labelFullNameRaw] ? LABELS_CACHE[labelFullNameRaw] : null;
+}
+
+/**
+ * @param {string} labelFullNameRaw
+ * @param {?FolderModel} label
+ */
+export function setLabelToCacheList(labelFullNameRaw, label)
+{
+	LABELS_CACHE[labelFullNameRaw] = label;
+}
+
+/**
+ * @param {string} labelFullNameRaw
+ */
+export function removeLabelFromCacheList(labelFullNameRaw)
+{
+	setLabelToCacheList(labelFullNameRaw, null);
 }
 
 /**

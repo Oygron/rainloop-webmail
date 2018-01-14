@@ -1085,6 +1085,137 @@ export function folderListOptionsBuilder(aSystem, aList, aDisabled, aHeaderLines
 }
 
 /**
+ * @param {Array} aSystem
+ * @param {Array} aList
+ * @param {Array=} aDisabled
+ * @param {Array=} aHeaderLines
+ * @param {?number=} iUnDeep
+ * @param {Function=} fDisableCallback
+ * @param {Function=} fVisibleCallback
+ * @param {Function=} fRenameCallback
+ * @param {boolean=} bSystem
+ * @param {boolean=} bBuildUnvisible
+ * @returns {Array}
+ */
+export function labelListOptionsBuilder(aSystem, aList, aDisabled, aHeaderLines,
+	iUnDeep, fDisableCallback, fVisibleCallback, fRenameCallback, bSystem, bBuildUnvisible)
+{
+	let
+		/**
+		 * @type {?FolderModel}
+		 */
+		oItem = null,
+		bSep = false,
+		iIndex = 0,
+		iLen = 0,
+		aResult = [];
+
+	const sDeepPrefix = '\u00A0\u00A0\u00A0';
+
+	bBuildUnvisible = isUnd(bBuildUnvisible) ? false : !!bBuildUnvisible;
+	bSystem = !isNormal(bSystem) ? 0 < aSystem.length : bSystem;
+	iUnDeep = !isNormal(iUnDeep) ? 0 : iUnDeep;
+	fDisableCallback = isNormal(fDisableCallback) ? fDisableCallback : null;
+	fVisibleCallback = isNormal(fVisibleCallback) ? fVisibleCallback : null;
+	fRenameCallback = isNormal(fRenameCallback) ? fRenameCallback : null;
+
+	if (!isArray(aDisabled))
+	{
+		aDisabled = [];
+	}
+
+	if (!isArray(aHeaderLines))
+	{
+		aHeaderLines = [];
+	}
+
+	for (iIndex = 0, iLen = aHeaderLines.length; iIndex < iLen; iIndex++)
+	{
+		aResult.push({
+			id: aHeaderLines[iIndex][0],
+			name: aHeaderLines[iIndex][1],
+			system: false,
+			seporator: false,
+			disabled: false
+		});
+	}
+
+	bSep = true;
+	for (iIndex = 0, iLen = aSystem.length; iIndex < iLen; iIndex++)
+	{
+		oItem = aSystem[iIndex];
+		if (fVisibleCallback ? fVisibleCallback(oItem) : true)
+		{
+			if (bSep && 0 < aResult.length)
+			{
+				aResult.push({
+					id: '---',
+					name: '---',
+					system: false,
+					seporator: true,
+					disabled: true
+				});
+			}
+
+			bSep = false;
+			aResult.push({
+				id: oItem.fullNameRaw,
+				name: fRenameCallback ? fRenameCallback(oItem) : oItem.name(),
+				system: true,
+				seporator: false,
+				disabled: !oItem.selectable || -1 < inArray(oItem.fullNameRaw, aDisabled) ||
+					(fDisableCallback ? fDisableCallback(oItem) : false)
+			});
+		}
+	}
+
+	bSep = true;
+	for (iIndex = 0, iLen = aList.length; iIndex < iLen; iIndex++)
+	{
+		oItem = aList[iIndex];
+		// if (oItem.subScribed() || !oItem.existen || bBuildUnvisible)
+		if ((oItem.subScribed() || !oItem.existen || bBuildUnvisible) && (oItem.selectable || oItem.hasSubScribedSubfolders()))
+		{
+			if (fVisibleCallback ? fVisibleCallback(oItem) : true)
+			{
+				if (FolderType.User === oItem.type() || !bSystem || oItem.hasSubScribedSubfolders())
+				{
+					if (bSep && 0 < aResult.length)
+					{
+						aResult.push({
+							id: '---',
+							name: '---',
+							system: false,
+							seporator: true,
+							disabled: true
+						});
+					}
+
+					bSep = false;
+					aResult.push({
+						id: oItem.fullNameRaw,
+						name: (new window.Array(oItem.deep + 1 - iUnDeep)).join(sDeepPrefix) +
+							(fRenameCallback ? fRenameCallback(oItem) : oItem.name()),
+						system: false,
+						seporator: false,
+						disabled: !oItem.selectable || -1 < inArray(oItem.fullNameRaw, aDisabled) ||
+							(fDisableCallback ? fDisableCallback(oItem) : false)
+					});
+				}
+			}
+		}
+
+		if (oItem.subScribed() && 0 < oItem.subFolders().length)
+		{
+			aResult = aResult.concat(labelListOptionsBuilder([], oItem.subFolders(), aDisabled, [],
+				iUnDeep, fDisableCallback, fVisibleCallback, fRenameCallback, bSystem, bBuildUnvisible));
+		}
+	}
+
+	return aResult;
+}
+
+/**
  * @param {object} element
  * @returns {void}
  */

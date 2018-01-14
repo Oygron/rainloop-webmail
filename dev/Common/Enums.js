@@ -141,6 +141,20 @@ export const ServerFolderType = {
 };
 
 /**
+ * @enum {number}
+ */
+export const LabelType = {
+	'Inbox': 10,
+	'SentItems': 11,
+	'Draft': 12,
+	'Trash': 13,
+	'Spam': 14,
+	'Archive': 15,
+	'NotSpam': 80,
+	'User': 99
+};
+
+/**
  * @enum {string}
  */
 export const LoginSignMeTypeAsString = {
