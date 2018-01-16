@@ -1,0 +1,37 @@
+<tr class="label-item" data-bind="css: { 'selectable': selectable, 'system': isSystemLabel }">
+	<td>
+		<span class="label-padding" data-bind="css: 'deep-' + deep">&nbsp;</span>
+		<span class="label-name" data-bind="text: name, visible: !edited(), css: { 'e-action': canBeEdited, 'can-be-edited': canBeEdited }, click: function (oLabel) { $root.labelForEdit(oLabel); }"></span>
+		&nbsp;
+		<span class="label-system-name" data-bind="text: manageLabelSystemName, visible: isSystemLabel"></span>
+		<input type="text" class="label-name-input"
+			autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+			data-bind="value: nameForEdit, visible: edited, hasfocus: edited, onEnter: function () { $root.labelEditOnEnter($data); }, onEsc: function () { $root.labelEditOnEsc($data); }" />
+
+		<a class="btn btn-small btn-small-small btn-danger pull-right button-delete button-delete-transitions" data-bind="css: {'delete-access': deleteAccess()}, click: function() { $root.deleteLabel($data); }">
+			<span class="i18n" data-i18n="SETTINGS_FOLDERS/DELETING_ASK"></span>
+		</a>
+	</td>
+	<td class="delete-label-parent">
+		<span class="delete-label" data-bind="visible: canBeDeleted() && !deleteAccess(), click: function (oLabel) { $root.labelForDeletion(oLabel); }">
+			<i class="icon-trash"></i>
+		</span>
+	</td>
+	<td class="subscribe-label-parent">
+		<span class="unsubscribe-label" data-bind="visible: canBeSubScribed() && !subScribed(), click: function(oLabel) { $root.subscribeLabel(oLabel); }">
+			<i class="icon-eye"></i>
+		</span>
+		<span class="subscribe-label" data-bind="visible: canBeSubScribed() && subScribed(), click: function(oLabel) { $root.unSubscribeLabel(oLabel); }">
+			<i class="icon-eye"></i>
+		</span>
+	</td>
+	<td class="check-label-parent" data-bind="visible: $root.displaySpecSetting">
+		<span class="uncheck-label" data-bind="visible: canBeChecked() && subScribed() && !checkable(), click: function(oLabel) { $root.checkableTrueLabel(oLabel); }">
+			<i class="icon-check-mark-circle-two"></i>
+		</span>
+		<span class="check-label" data-bind="visible: canBeChecked() && subScribed() && checkable(), click: function(oLabel) { $root.checkableFalseLabel(oLabel); }">
+			<i class="icon-check-mark-circle-two"></i>
+		</span>
+	</td>
+</tr>
+<!-- ko template: { name: 'SettingsLabelItem', foreach: subLabels } --><!-- /ko -->

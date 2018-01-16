@@ -1,0 +1,122 @@
+
+.b-settings-labels {
+
+	html.rl-mobile &{
+		margin-right: 35px;
+	}
+
+	&.ignore-label-subscribe {
+		.subscribe-label, .unsubscribe-label {
+			display: none;
+		}
+	}
+
+	.process-place {
+		text-align: center;
+		width: 600px;
+		padding: 14px 0;
+	}
+
+	.labels-list-error {
+		width: 550px;
+		margin: 10px 0px;
+	}
+
+	.list-table {
+
+		width: 600px;
+
+		.e-action {
+			cursor: pointer;
+		}
+
+		td {
+			padding: 4px 8px;
+			line-height: 30px;
+		}
+
+		.label-padding {
+			display: inline-block;
+			width: 0;
+		}
+
+		.label-name {
+			display: inline-block;
+			word-break: break-all;
+			white-space: pre-wrap;
+			box-sizing: border-box;
+			margin-left: 7px;
+			line-height: 22px;
+			cursor: default;
+		}
+
+		.label-system-name {
+			display: inline-block;
+			line-height: 22px;
+			color: #999;
+			cursor: default;
+		}
+
+		.label-name.can-be-edited:hover {
+			border-bottom: 1px dashed #333;
+			cursor: pointer;
+		}
+
+		.label-name-input {
+			border-width: 1px;
+			margin-bottom: 0;
+			margin-left: -4px;
+		}
+	}
+
+	.label-item {
+
+		&.system .label-name {
+			font-weight: bold;
+		}
+
+		.button-delete {
+			margin-right: 15px;
+			margin-top: 5px;
+			visibility: hidden;
+			opacity: 0;
+		}
+
+		.delete-access {
+			&.button-delete {
+				visibility: visible;
+				margin-right: 0;
+				opacity: 1;
+			}
+		}
+
+		.delete-label, .subscribe-label, .unsubscribe-label, .check-label, .uncheck-label {
+			cursor: pointer;
+			opacity: 0.6;
+		}
+
+		.unsubscribe-label {
+			opacity: 0.2;
+		}
+
+		.uncheck-label {
+			opacity: 0.2;
+		}
+	}
+
+	.label-padding.deep-1 {
+		width: 15px * 1 + 10px;
+	}
+	.label-padding.deep-2 {
+		width: 15px * 2 + 10px;
+	}
+	.label-padding.deep-3 {
+		width: 15px * 3 + 10px;
+	}
+	.label-padding.deep-4 {
+		width: 15px * 4 + 10px;
+	}
+	.label-padding.deep-5 {
+		width: 15px * 5 + 10px;
+	}
+}
