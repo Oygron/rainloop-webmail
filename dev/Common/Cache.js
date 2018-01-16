@@ -13,6 +13,7 @@ let FOLDERS_CACHE = {},
 	LABELS_NAME_CACHE = {},
 	LABELS_HASH_CACHE = {},
 	LABELS_UID_NEXT_CACHE = {},
+	LABELS_COLOR_CACHE = {},
 	MESSAGE_FLAGS_CACHE = {},
 	NEW_MESSAGE_CACHE = {},
 	inboxFolderName = '',
@@ -34,6 +35,7 @@ export function clear()
 	LABELS_NAME_CACHE = {};
 	LABELS_HASH_CACHE = {};
 	LABELS_UID_NEXT_CACHE = {};
+	LABELS_COLOR_CACHE = {};
 	MESSAGE_FLAGS_CACHE = {};
 }
 
@@ -251,6 +253,27 @@ export function setLabelHash(labelFullNameRaw, labelHash)
 	if ('' !== labelFullNameRaw)
 	{
 		LABELS_HASH_CACHE[labelFullNameRaw] = labelHash;
+	}
+}
+
+/**
+ * @param {string} labelFullNameRaw
+ * @returns {string}
+ */
+export function getLabelColor(labelFullNameRaw)
+{
+	return '' !== labelFullNameRaw && LABELS_COLOR_CACHE[labelFullNameRaw] ? LABELS_COLOR_CACHE[labelFullNameRaw] : '';
+}
+
+/**
+ * @param {string} labelFullNameRaw
+ * @param {string} labelColor
+ */
+export function setLabelColor(labelFullNameRaw, labelColor)
+{
+	if ('' !== labelFullNameRaw)
+	{
+		LABELS_COLOR_CACHE[labelFullNameRaw] = labelColor;
 	}
 }
 
